@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BottomNavBar } from "@/components/bottom-nav-bar";
 
 interface Feature {
   name: string;
@@ -10,13 +11,20 @@ interface Feature {
   premium: string | boolean;
 }
 
-const features: Feature[] = [
-  { name: "All courses & lessons", free: true, premium: true },
-  { name: "Daily lesson limit", free: "5/day", premium: "Unlimited" },
-  { name: "Ad-free experience", free: false, premium: true },
-  { name: "Offline access", free: "Limited", premium: "Full" },
-  { name: "Priority new courses", free: false, premium: true },
-];
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  billingPeriod: string;
+  discount?: number;
+  isRecommended?: boolean;
+}
+
+// TODO: fetch from GET /api/pricing/plans
+const features: Feature[] = [];
+
+const pricingPlans: PricingPlan[] = [];
 
 function CrownIcon({ className }: { className?: string }) {
   return (
@@ -64,10 +72,28 @@ function FeatureValue({ value }: { value: string | boolean }) {
 }
 
 export default function PremiumPage() {
-  const [selectedPlan, setSelectedPlan] = useState<"monthly" | "annual">("annual");
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // TODO: fetch from GET /api/pricing
+    const fetchPricing = async () => {
+      try {
+        // const response = await fetch('/api/pricing');
+        // const data = await response.json();
+        // setPricingPlans(data);
+      } catch (error) {
+        console.error("Failed to fetch pricing:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPricing();
+  }, []);
 
   return (
-    <div className="flex min-h-dvh flex-col bg-[#F8F4E8]">
+    <div className="flex min-h-dvh flex-col bg-background">
       {/* Scrollable content */}
       <main className="flex-1 overflow-y-auto pb-36">
         {/* Hero section */}
@@ -87,86 +113,100 @@ export default function PremiumPage() {
         </section>
 
         {/* Feature comparison card */}
-        <section className="mx-4 mt-6">
-          <div className="rounded-2xl bg-[#FFFFFF] p-5 shadow-sm">
-            {/* Header row */}
-            <div className="mb-4 grid grid-cols-[1fr_60px_60px] items-center gap-2">
-              <span className="font-body text-xs font-medium text-[#1A1A2E]/40">
-                Features
-              </span>
-              <span className="text-center font-body text-xs font-medium text-[#1A1A2E]/40">
-                Free
-              </span>
-              <span className="text-center font-body text-xs font-medium text-[#D4A017]">
-                Premium
-              </span>
-            </div>
+        {isLoading ? (
+          <section className="mx-4 mt-6">
+            <div className="h-40 rounded-2xl bg-surface animate-pulse" />
+          </section>
+        ) : features.length > 0 ? (
+          <section className="mx-4 mt-6">
+            <div className="rounded-2xl bg-surface p-5 shadow-sm">
+              {/* Header row */}
+              <div className="mb-4 grid grid-cols-[1fr_60px_60px] items-center gap-2">
+                <span className="font-body text-xs font-medium text-text/40">
+                  Features
+                </span>
+                <span className="text-center font-body text-xs font-medium text-text/40">
+                  Free
+                </span>
+                <span className="text-center font-body text-xs font-medium text-gold">
+                  Premium
+                </span>
+              </div>
 
-            {/* Feature rows */}
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-[1fr_60px_60px] items-center gap-2"
-                >
-                  <span className="font-body text-sm text-[#1A1A2E]">
-                    {feature.name}
-                  </span>
-                  <div className="flex justify-center">
-                    <FeatureValue value={feature.free} />
+              {/* Feature rows */}
+              <div className="space-y-4">
+                {features.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-[1fr_60px_60px] items-center gap-2"
+                  >
+                    <span className="font-body text-sm text-text">
+                      {feature.name}
+                    </span>
+                    <div className="flex justify-center">
+                      <FeatureValue value={feature.free} />
+                    </div>
+                    <div className="flex justify-center">
+                      <FeatureValue value={feature.premium} />
+                    </div>
                   </div>
-                  <div className="flex justify-center">
-                    <FeatureValue value={feature.premium} />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <section className="mx-4 mt-6">
+            <div className="rounded-2xl border-2 border-dashed border-gold-light bg-surface p-6 text-center">
+              <p className="font-heading text-sm font-bold text-text">
+                Pricing not available
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Pricing cards */}
-        <section className="mx-4 mt-4 space-y-3">
-          {/* Monthly card */}
-          <button
-            onClick={() => setSelectedPlan("monthly")}
-            className={cn(
-              "w-full rounded-2xl bg-[#FFFFFF] p-4 text-left transition-all",
-              selectedPlan === "monthly"
-                ? "border-2 border-[#D4A017] shadow-md"
-                : "border-[1.5px] border-[#E5E7EB]"
-            )}
-          >
-            <p className="font-heading text-xl font-bold text-[#1A1A2E]">
-              KES 299/month
-            </p>
-            <p className="mt-1 font-body text-xs text-[#1A1A2E]/60">
-              Billed monthly
-            </p>
-          </button>
+        {isLoading ? (
+          <section className="mx-4 mt-4 space-y-3">
+            <div className="h-20 rounded-2xl bg-surface animate-pulse" />
+            <div className="h-20 rounded-2xl bg-surface animate-pulse" />
+          </section>
+        ) : pricingPlans.length > 0 ? (
+          <section className="mx-4 mt-4 space-y-3">
+            {pricingPlans.map(plan => (
+              <button
+                key={plan.id}
+                onClick={() => setSelectedPlan(plan.id)}
+                className={cn(
+                  "relative w-full rounded-2xl bg-surface p-4 text-left transition-all",
+                  selectedPlan === plan.id || plan.isRecommended
+                    ? "border-2 border-gold shadow-md"
+                    : "border-[1.5px] border-gray-200"
+                )}
+              >
+                {plan.isRecommended && (
+                  <span className="absolute right-3 top-3 rounded-full bg-gold px-2 py-0.5 font-body text-[10px] font-semibold uppercase tracking-wide text-white">
+                    Best Value
+                  </span>
+                )}
 
-          {/* Annual card - Recommended */}
-          <button
-            onClick={() => setSelectedPlan("annual")}
-            className={cn(
-              "relative w-full rounded-2xl bg-[#FFFFFF] p-4 text-left transition-all",
-              selectedPlan === "annual"
-                ? "border-2 border-[#D4A017] shadow-md"
-                : "border-2 border-[#D4A017]"
-            )}
-          >
-            {/* Best value badge */}
-            <span className="absolute right-3 top-3 rounded-full bg-[#D4A017] px-2 py-0.5 font-body text-[10px] font-semibold uppercase tracking-wide text-[#FFFFFF]">
-              Best Value
-            </span>
-
-            <p className="font-heading text-xl font-bold text-[#D4A017]">
-              KES 2,499/year
-            </p>
-            <p className="mt-1 font-body text-xs text-[#22C55E]">
-              Save 30% · KES 208/month
-            </p>
-          </button>
-        </section>
+                <p className={`font-heading text-xl font-bold ${plan.isRecommended ? "text-gold" : "text-text"}`}>
+                  {plan.currency} {plan.price}/{plan.billingPeriod}
+                </p>
+                <p className="mt-1 font-body text-xs text-text/60">
+                  {plan.name}
+                </p>
+              </button>
+            ))}
+          </section>
+        ) : (
+          <section className="mx-4 mt-4">
+            <div className="rounded-2xl border-2 border-dashed border-gold-light bg-surface p-6 text-center">
+              <p className="font-heading text-sm font-bold text-text">
+                No plans available
+              </p>
+            </div>
+          </section>
+        )}
       </main>
 
       {/* Bottom CTA */}

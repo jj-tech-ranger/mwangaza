@@ -11,20 +11,9 @@ interface WorkedExample {
   explanation: string;
 }
 
-const workedExamples: WorkedExample[] = [
-  {
-    id: 1,
-    problem: "34 + 22 = ?",
-    answer: "56",
-    explanation: "4+2=6, 3+2=5 → 56",
-  },
-  {
-    id: 2,
-    problem: "47 + 31 = ?",
-    answer: "78",
-    explanation: "7+1=8, 4+3=7 → 78",
-  },
-];
+// Mock data removed - will be fetched from backend
+// TODO: fetch from GET /api/lessons/[lessonId]
+const workedExamples: WorkedExample[] = [];
 
 function AdditionIllustration() {
   return (

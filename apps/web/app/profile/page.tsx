@@ -9,23 +9,18 @@ interface Badge {
   earned: boolean;
 }
 
-const badges: Badge[] = [
-  { id: 1, emoji: "🔢", name: "Counting", earned: true },
-  { id: 2, emoji: "➕", name: "Addition", earned: true },
-  { id: 3, emoji: "💯", name: "Perfect Score", earned: true },
-  { id: 4, emoji: "✖️", name: "Multiplication", earned: false },
-];
+// Mock data removed - will be fetched from backend
+// TODO: fetch from GET /api/user/badges
+const badges: Badge[] = [];
 
 interface Stat {
   value: string;
   label: string;
 }
 
-const stats: Stat[] = [
-  { value: "12", label: "Lessons" },
-  { value: "2", label: "Courses" },
-  { value: "3", label: "Badges" },
-];
+// Mock stats removed - will be fetched from backend
+// TODO: fetch from GET /api/user/stats
+const stats: Stat[] = [];
 
 function Avatar({ initials }: { initials: string }) {
   return (

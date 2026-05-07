@@ -10,18 +10,15 @@ interface AnswerOption {
   isCorrect: boolean;
 }
 
-const answerOptions: AnswerOption[] = [
-  { id: "A", value: "78", isCorrect: true },
-  { id: "B", value: "77", isCorrect: false },
-  { id: "C", value: "88", isCorrect: false },
-  { id: "D", value: "68", isCorrect: false },
-];
+// Mock data removed - will be fetched from backend
+// TODO: fetch from GET /api/quizzes/[quizId]
+const answerOptions: AnswerOption[] = [];
 
-const totalQuestions = 5;
-const currentQuestion = 2;
+const totalQuestions = 0;
+const currentQuestion = 0;
 
 // Question results: null = not answered, true = correct, false = incorrect
-const questionResults: (boolean | null)[] = [true, null, null, null, null];
+const questionResults: (boolean | null)[] = [];
 
 function ProgressDots({
   results,

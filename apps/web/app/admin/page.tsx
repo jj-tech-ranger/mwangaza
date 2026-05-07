@@ -79,11 +79,22 @@ function StatusBadge({ status }: { status: "published" | "draft" }) {
 
 export default function AdminPage() {
   const [activeNav, setActiveNav] = useState<NavItem>("courses");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#F8F4E8]">
+    <div className="flex min-h-screen flex-col bg-[#F8F4E8] lg:flex-row">
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="flex h-16 items-center gap-3 border-b border-[#E5E7EB] bg-[#FFFFFF] px-4 lg:hidden"
+      >
+        <span className="font-heading text-lg font-bold text-[#1A1A2E]">Menu</span>
+      </button>
+
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 flex h-full w-[240px] flex-col bg-[#FFFFFF] shadow-[1px_0_0_0_#E5E7EB]">
+      <aside className={`${
+        sidebarOpen ? "flex" : "hidden"
+      } absolute left-0 top-16 z-40 w-full flex-col bg-[#FFFFFF] shadow-[1px_0_0_0_#E5E7EB] lg:relative lg:top-0 lg:flex lg:w-[240px]`}>
         {/* Logo section */}
         <div className="flex items-center gap-3 border-b border-[#E5E7EB] px-5 py-5">
           <MwangazaLogo />
@@ -119,7 +130,7 @@ export default function AdminPage() {
       </aside>
 
       {/* Main content */}
-      <main className="ml-[240px] flex-1 p-8">
+      <main className="flex-1 p-4 lg:ml-[240px] lg:p-8">
         {/* Top bar */}
         <div className="mb-6 flex items-center justify-between">
           <h1 className="font-heading text-2xl font-bold text-[#1A1A2E]">

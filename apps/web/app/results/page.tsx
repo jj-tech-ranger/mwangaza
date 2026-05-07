@@ -158,7 +158,7 @@ export default function ResultsPage() {
         {/* Top celebration section */}
         <div className="flex flex-col items-center pt-[60px]">
           {/* Animated trophy */}
-          <div className="animate-trophy-pulse mb-4">
+          <div className="mb-4" style={{ animation: 'trophy-pulse 2s ease-in-out infinite' }}>
             <TrophyIcon className="h-20 w-20" />
           </div>
 
@@ -213,32 +213,7 @@ export default function ResultsPage() {
         </button>
       </div>
 
-      {/* Inline styles for custom animations */}
-      <style jsx>{`
-        @keyframes confetti-fall {
-          0% {
-            transform: translateY(-20px) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-          }
-        }
 
-        .animate-trophy-pulse {
-          animation: trophy-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes trophy-pulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-        }
-      `}</style>
     </div>
   );
 }

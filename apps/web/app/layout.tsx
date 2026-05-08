@@ -1,24 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { Nunito } from "next/font/google";
 import "./globals.css";
-import { Plus_Jakarta_Sans, DM_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const nunito = Nunito({
   subsets: ["latin"],
-  variable: "--font-heading",
-  weight: ["400", "500", "600", "700"],
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "700"],
-});
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+  variable: "--font-nunito",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -31,6 +19,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: "#D4A017",
 };
 
 export default function RootLayout({
@@ -39,18 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn(
-        "bg-background",
-        plusJakartaSans.variable,
-        dmSans.variable,
-        geistMono.variable
-      )}
-    >
-      <body className="font-body">
-        {children}
-      </body>
+    <html lang="en" className={cn("bg-background", nunito.variable)}>
+      <body className="font-nunito">{children}</body>
     </html>
   );
 }

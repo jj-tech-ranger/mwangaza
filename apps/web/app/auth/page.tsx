@@ -1,5 +1,7 @@
-import { AuthForm } from "@/components/auth-form";
+"use client";
 
-export default function AuthPage() {
-  return <AuthForm />;
+import AuthScreen from "@/components/shared/AuthScreen";
+
+export default function Page() {
+  return <AuthScreen />;
 }

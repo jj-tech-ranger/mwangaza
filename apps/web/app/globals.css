@@ -4,33 +4,34 @@
 
 @layer base {
   :root {
-    --background: #F8F4E8;
-    --foreground: #1A1A2E;
+    --background: #FFFDF5;
+    --foreground: #2D2006;
     --gold: #D4A017;
     --gold-light: #FDF3D0;
     --gold-dark: #A67C00;
+    --gold-darker: #7A6020;
     --surface: #FFFFFF;
-    --text: #1A1A2E;
+    --text: #2D2006;
+    --text-muted: #7A6020;
+    --text-light: #A67C00;
     --success: #22C55E;
     --error: #EF4444;
+    --border: rgba(212, 160, 23, 0.2);
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-nunito);
   }
 
   html {
-    @apply font-body;
+    @apply font-nunito;
   }
 }
 
 @layer components {
-  .font-heading {
-    @apply font-[var(--font-heading)];
-  }
-
-  .font-body {
-    @apply font-[var(--font-body)];
+  .font-nunito {
+    @apply font-[var(--font-nunito)];
   }
 }
 

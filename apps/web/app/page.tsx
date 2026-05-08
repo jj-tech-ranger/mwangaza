@@ -1,5 +1,7 @@
-import { SplashScreen } from "@/components/splash-screen";
+"use client";
 
-export default function Home() {
+import SplashScreen from "@/components/shared/SplashScreen";
+
+export default function Page() {
   return <SplashScreen />;
 }

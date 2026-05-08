@@ -9,68 +9,7 @@ interface AdminUsersScreenProps {
 export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps = {}) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const users = [
-    {
-      id: 1,
-      name: "Amina Wanjiku",
-      email: "amina.w@example.com",
-      avatar: "AW",
-      joinDate: "May 3, 2026",
-      xp: 340,
-      level: "Msomi",
-      courses: 1,
-      status: "active",
-      lastActive: "2 hours ago",
-    },
-    {
-      id: 2,
-      name: "Kwame Osei",
-      email: "kwame.o@example.com",
-      avatar: "KO",
-      joinDate: "April 28, 2026",
-      xp: 1520,
-      level: "Bingwa",
-      courses: 2,
-      status: "active",
-      lastActive: "1 day ago",
-    },
-    {
-      id: 3,
-      name: "Fatima Hassan",
-      email: "fatima.h@example.com",
-      avatar: "FH",
-      joinDate: "April 25, 2026",
-      xp: 890,
-      level: "Msomi",
-      courses: 1,
-      status: "active",
-      lastActive: "3 hours ago",
-    },
-    {
-      id: 4,
-      name: "Juma Makena",
-      email: "juma.m@example.com",
-      avatar: "JM",
-      joinDate: "April 20, 2026",
-      xp: 2240,
-      level: "Shujaa",
-      courses: 3,
-      status: "active",
-      lastActive: "5 hours ago",
-    },
-    {
-      id: 5,
-      name: "Sarah Ndlovu",
-      email: "sarah.n@example.com",
-      avatar: "SN",
-      joinDate: "April 15, 2026",
-      xp: 145,
-      level: "Mwanafunzi",
-      courses: 1,
-      status: "suspended",
-      lastActive: "2 weeks ago",
-    },
-  ];
+  const users: any[] = [];
 
   return (
     <div

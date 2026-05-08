@@ -86,21 +86,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
             A
           </div>
 
-          {/* XP Pill */}
-          <div
-            onClick={() => onNavigate?.("profile")}
-            style={{
-              backgroundColor: "#FDF0C2",
-              color: "#A67C00",
-              fontWeight: 700,
-              fontSize: "12px",
-              padding: "6px 12px",
-              borderRadius: "100px",
-              cursor: "pointer",
-            }}
-          >
-            ⚡ 340 XP
-          </div>
+
         </div>
       </div>
 
@@ -136,32 +122,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
           </p>
         </div>
 
-        {/* Daily Goal Ring */}
-        <div className="relative flex items-center justify-center">
-          <svg width="56" height="56" viewBox="0 0 56 56">
-            {/* Background track */}
-            <circle cx="28" cy="28" r="24" fill="none" stroke="#FDF0C2" strokeWidth="6" />
-            {/* Progress arc (60% fill) */}
-            <circle
-              cx="28"
-              cy="28"
-              r="24"
-              fill="none"
-              stroke="#D4A017"
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeDasharray={`${0.6 * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
-              transform="rotate(-90 28 28)"
-            />
-          </svg>
-          <div
-            className="absolute inset-0 flex flex-col items-center justify-center"
-            style={{ fontFamily: "Nunito, sans-serif" }}
-          >
-            <span style={{ fontSize: "14px", fontWeight: 700, color: "#A67C00" }}>3/5</span>
-            <span style={{ fontSize: "9px", color: "#C8930A" }}>today</span>
-          </div>
-        </div>
+
       </div>
 
       {/* Daily Challenge Card */}

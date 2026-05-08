@@ -12,11 +12,7 @@ interface ProfileScreenProps {
 }
 
 export default function ProfileScreen({ onNavigate }: ProfileScreenProps = {}) {
-  const stats = [
-    { value: 14, label: "Lessons" },
-    { value: 1, label: "Courses" },
-    { value: 3, label: "Badges" },
-  ];
+  const stats = [];
 
   const badges = [];
   const hasBadges = false;
@@ -60,30 +56,7 @@ export default function ProfileScreen({ onNavigate }: ProfileScreenProps = {}) {
         </button>
       </div>
 
-      {/* Profile Hero */}
-      <div className="mx-5" style={{ marginTop: "0px" }}>
-        <ProfileHero
-          initials="AW"
-          name="Amina Wanjiku"
-          level="⭐ Msomi"
-          levelTitle="— Scholar"
-          memberSince="Member since May 2026"
-          currentXP={250}
-          nextLevelXP={500}
-          currentLevel="Msomi"
-          nextLevel="Hodari"
-        />
-      </div>
 
-      {/* Stats Row */}
-      <div className="mx-5" style={{ marginTop: "12px" }}>
-        <StatBar stats={stats} />
-      </div>
-
-      {/* Streak Calendar */}
-      <div className="mx-5" style={{ marginTop: "20px" }}>
-        <StreakCalendar streakDays={5} />
-      </div>
 
       {/* Badges Section */}
       <div className="mx-5" style={{ marginTop: "20px" }}>

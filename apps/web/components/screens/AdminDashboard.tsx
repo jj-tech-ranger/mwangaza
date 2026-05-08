@@ -9,15 +9,7 @@ interface AdminDashboardProps {
 }
 
 export default function AdminDashboard({ onNavigate }: AdminDashboardProps = {}) {
-  const chartData = [
-    { id: "mon", day: "Mon", lessons: 420 },
-    { id: "tue", day: "Tue", lessons: 580 },
-    { id: "wed", day: "Wed", lessons: 710 },
-    { id: "thu", day: "Thu", lessons: 650 },
-    { id: "fri", day: "Fri", lessons: 820 },
-    { id: "sat", day: "Sat", lessons: 590 },
-    { id: "sun", day: "Sun", lessons: 480 },
-  ];
+  const chartData: { id: string; day: string; lessons: number }[] = [];
 
   return (
     <div
@@ -54,20 +46,6 @@ export default function AdminDashboard({ onNavigate }: AdminDashboardProps = {})
           </h1>
 
           <div className="flex items-center gap-3">
-            <div
-              style={{
-                backgroundColor: "#FEF5D4",
-                color: "#A67C00",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "13px",
-                fontWeight: 700,
-                padding: "8px 16px",
-                borderRadius: "100px",
-              }}
-            >
-              May 8, 2026
-            </div>
-
             <button
               style={{
                 height: "40px",

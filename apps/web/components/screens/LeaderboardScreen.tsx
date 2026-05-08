@@ -11,29 +11,11 @@ interface LeaderboardScreenProps {
 export default function LeaderboardScreen({ onNavigate }: LeaderboardScreenProps = {}) {
   const [activeTab, setActiveTab] = useState<"week" | "alltime" | "friends">("week");
 
-  // Different data for each tab
+  // Empty leaderboard
   const leaderboardData = {
-    week: [
-      { rank: 4, name: "Samuel", level: "⭐ Msomi", xp: 742, avatar: "SK" },
-      { rank: 5, name: "Aisha", level: "⭐ Msomi", xp: 689, avatar: "AM" },
-      { rank: 6, name: "Kofi", level: "⚡ Bingwa", xp: 621, avatar: "KA" },
-      { rank: 7, name: "Zara", level: "⚡ Bingwa", xp: 458, avatar: "ZM" },
-      { rank: 8, name: "You — Amina", level: "⭐ Msomi", xp: 340, avatar: "AW", isSelf: true },
-    ],
-    alltime: [
-      { rank: 2, name: "Kwame", level: "⚡⚡ Shujaa", xp: 4521, avatar: "KO" },
-      { rank: 3, name: "Fatima", level: "⚡⚡ Shujaa", xp: 3890, avatar: "FM" },
-      { rank: 4, name: "Kofi", level: "⚡ Bingwa", xp: 3102, avatar: "KA" },
-      { rank: 5, name: "Samuel", level: "⚡ Bingwa", xp: 2745, avatar: "SK" },
-      { rank: 12, name: "You — Amina", level: "⭐ Msomi", xp: 1240, avatar: "AW", isSelf: true },
-    ],
-    friends: [
-      { rank: 1, name: "Juma", level: "⭐ Msomi", xp: 856, avatar: "JM" },
-      { rank: 2, name: "Sarah", level: "⭐ Msomi", xp: 734, avatar: "SM" },
-      { rank: 3, name: "You — Amina", level: "⭐ Msomi", xp: 340, avatar: "AW", isSelf: true },
-      { rank: 4, name: "Kendi", level: "⭐ Msomi", xp: 289, avatar: "KN" },
-      { rank: 5, name: "Ali", level: "⭐ Mwanafunzi", xp: 145, avatar: "AK" },
-    ],
+    week: [],
+    alltime: [],
+    friends: [],
   };
 
   const leaderboardUsers = leaderboardData[activeTab];

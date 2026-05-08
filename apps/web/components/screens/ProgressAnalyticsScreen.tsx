@@ -7,29 +7,9 @@ interface ProgressAnalyticsScreenProps {
 }
 
 export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalyticsScreenProps = {}) {
-  const weeklyXP = [
-    { id: "mon", day: "M", xp: 45 },
-    { id: "tue", day: "T", xp: 60 },
-    { id: "wed", day: "W", xp: 85 },
-    { id: "thu", day: "T", xp: 30 },
-    { id: "fri", day: "F", xp: 95 },
-    { id: "sat", day: "S", xp: 70 },
-    { id: "sun", day: "S", xp: 55 },
-  ];
-
-  const monthlyProgress = [
-    { id: "week1", week: "W1", lessons: 8 },
-    { id: "week2", week: "W2", lessons: 12 },
-    { id: "week3", week: "W3", lessons: 15 },
-    { id: "week4", week: "W4", lessons: 10 },
-  ];
-
-  const stats = [
-    { label: "Current Streak", value: "5 days", icon: Flame, color: "#D4A017" },
-    { label: "Total XP", value: "1,240", icon: TrendingUp, color: "#C8930A" },
-    { label: "Lessons Done", value: "45", icon: Target, color: "#A67C00" },
-    { label: "Certificates", value: "1", icon: Award, color: "#22C55E" },
-  ];
+  const weeklyXP: any[] = [];
+  const monthlyProgress: any[] = [];
+  const stats: any[] = [];
 
   return (
     <div

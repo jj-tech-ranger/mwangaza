@@ -17,53 +17,7 @@ interface Notification {
 }
 
 export default function NotificationsScreen({ onNavigate }: NotificationsScreenProps = {}) {
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: "1",
-      type: "badge",
-      title: "New Badge Earned!",
-      message: "You've earned the 'Learning Master' badge for completing 5 addition lessons.",
-      time: "2 hours ago",
-      read: false,
-      icon: "➕",
-    },
-    {
-      id: "2",
-      type: "streak",
-      title: "5-Day Streak! 🔥",
-      message: "Amazing! You've learned for 5 days straight. Keep it up!",
-      time: "1 day ago",
-      read: false,
-      icon: "🔥",
-    },
-    {
-      id: "3",
-      type: "level",
-      title: "Level Up!",
-      message: "Congratulations! You've reached level 'Msomi' (Scholar).",
-      time: "2 days ago",
-      read: true,
-      icon: "⭐",
-    },
-    {
-      id: "4",
-      type: "course",
-      title: "New Course Available",
-      message: "Kiswahili Literacy is now available. Start learning today!",
-      time: "3 days ago",
-      read: true,
-      icon: "🇰🇪",
-    },
-    {
-      id: "5",
-      type: "premium",
-      title: "Limited Offer: Premium Trial",
-      message: "Try Premium free for 7 days. Unlock unlimited lessons and offline access.",
-      time: "5 days ago",
-      read: true,
-      icon: "👑",
-    },
-  ]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const markAsRead = (id: string) => {
     setNotifications(notifications.map(n =>

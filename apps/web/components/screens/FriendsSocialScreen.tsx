@@ -10,90 +10,9 @@ export default function FriendsSocialScreen({ onNavigate }: FriendsSocialScreenP
   const [activeTab, setActiveTab] = useState<"friends" | "requests" | "find">("friends");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const friends = [
-    {
-      id: 1,
-      name: "Amina Wanjiku",
-      avatar: "AW",
-      level: "Bingwa",
-      xp: 2145,
-      streak: 12,
-      online: true,
-    },
-    {
-      id: 2,
-      name: "Kwame Osei",
-      avatar: "KO",
-      level: "Shujaa",
-      xp: 3420,
-      streak: 28,
-      online: true,
-    },
-    {
-      id: 3,
-      name: "Fatima Hassan",
-      avatar: "FH",
-      level: "Msomi",
-      xp: 1890,
-      streak: 7,
-      online: false,
-    },
-    {
-      id: 4,
-      name: "Juma Makena",
-      avatar: "JM",
-      level: "Bingwa",
-      xp: 2640,
-      streak: 15,
-      online: false,
-    },
-  ];
-
-  const requests = [
-    {
-      id: 1,
-      name: "Sarah Ndlovu",
-      avatar: "SN",
-      level: "Msomi",
-      xp: 980,
-      mutualFriends: 3,
-    },
-    {
-      id: 2,
-      name: "David Kamau",
-      avatar: "DK",
-      level: "Mwanafunzi",
-      xp: 245,
-      mutualFriends: 1,
-    },
-  ];
-
-  const suggestions = [
-    {
-      id: 1,
-      name: "Grace Mwangi",
-      avatar: "GM",
-      level: "Bingwa",
-      xp: 2850,
-      mutualFriends: 5,
-    },
-    {
-      id: 2,
-      name: "Ibrahim Ali",
-      avatar: "IA",
-      level: "Shujaa",
-      xp: 4120,
-      mutualFriends: 2,
-    },
-    {
-      id: 3,
-      name: "Zuri Omondi",
-      avatar: "ZO",
-      level: "Msomi",
-      xp: 1560,
-      mutualFriends: 4,
-    },
-  ];
+  const friends: any[] = [];
+  const requests: any[] = [];
+  const suggestions: any[] = [];
 
   return (
     <div

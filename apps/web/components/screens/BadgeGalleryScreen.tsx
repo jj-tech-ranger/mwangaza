@@ -20,108 +20,7 @@ interface Badge {
 export default function BadgeGalleryScreen({ onNavigate }: BadgeGalleryScreenProps = {}) {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
 
-  const badges: Badge[] = [
-    {
-      id: "1",
-      emoji: "🔢",
-      name: "Counting Master",
-      description: "Mastered counting from 1 to 100",
-      earned: true,
-      earnedDate: "May 3, 2026",
-      requirement: "Complete all counting lessons",
-    },
-    {
-      id: "2",
-      emoji: "➕",
-      name: "Addition Master",
-      description: "Expert at addition problems",
-      earned: true,
-      earnedDate: "May 7, 2026",
-      requirement: "Complete 5 addition lessons",
-    },
-    {
-      id: "3",
-      emoji: "💯",
-      name: "Perfect Score",
-      description: "Scored 100% on a quiz",
-      earned: true,
-      earnedDate: "May 6, 2026",
-      requirement: "Get all questions correct in any quiz",
-    },
-    {
-      id: "4",
-      emoji: "🔥",
-      name: "5-Day Streak",
-      description: "Learned 5 days in a row",
-      earned: true,
-      earnedDate: "May 8, 2026",
-      requirement: "Learn every day for 5 consecutive days",
-    },
-    {
-      id: "5",
-      emoji: "➖",
-      name: "Subtraction Pro",
-      description: "Master of subtraction",
-      earned: false,
-      requirement: "Complete all subtraction lessons",
-    },
-    {
-      id: "6",
-      emoji: "✖️",
-      name: "Multiplication Wizard",
-      description: "Multiplication expert",
-      earned: false,
-      requirement: "Complete all multiplication lessons",
-    },
-    {
-      id: "7",
-      emoji: "➗",
-      name: "Division Champion",
-      description: "Division skills unlocked",
-      earned: false,
-      requirement: "Complete all division lessons",
-    },
-    {
-      id: "8",
-      emoji: "🏆",
-      name: "Course Complete",
-      description: "Finished an entire course",
-      earned: false,
-      requirement: "Complete all modules in Basic Math",
-    },
-    {
-      id: "9",
-      emoji: "⚡",
-      name: "Speed Learner",
-      description: "Completed 10 lessons in one day",
-      earned: false,
-      requirement: "Complete 10 lessons in 24 hours",
-    },
-    {
-      id: "10",
-      emoji: "🎯",
-      name: "Goal Crusher",
-      description: "Met daily goal 30 days straight",
-      earned: false,
-      requirement: "Reach your daily learning goal for 30 consecutive days",
-    },
-    {
-      id: "11",
-      emoji: "📚",
-      name: "Bookworm",
-      description: "Read 50 lesson explanations",
-      earned: false,
-      requirement: "Complete 50 lesson views",
-    },
-    {
-      id: "12",
-      emoji: "🌟",
-      name: "Rising Star",
-      description: "Reached 1000 XP",
-      earned: false,
-      requirement: "Earn 1000 total XP",
-    },
-  ];
+  const badges: Badge[] = [];
 
   const earnedCount = badges.filter(b => b.earned).length;
 
@@ -216,17 +115,52 @@ export default function BadgeGalleryScreen({ onNavigate }: BadgeGalleryScreenPro
         </div>
       </div>
 
-      {/* Badges Grid */}
-      <div
-        className="mx-5"
-        style={{
-          marginTop: "24px",
-          paddingBottom: "40px",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "12px",
-        }}
-      >
+      {/* Empty State */}
+      {badges.length === 0 ? (
+        <div
+          className="flex flex-col items-center justify-center"
+          style={{
+            marginTop: "60px",
+            paddingBottom: "20px",
+            flex: 1,
+          }}
+        >
+          <div style={{ fontSize: "64px", marginBottom: "20px", opacity: 0.3 }}>🏆</div>
+          <h2
+            style={{
+              fontFamily: "Nunito, sans-serif",
+              fontWeight: 900,
+              fontSize: "20px",
+              color: "#2D2006",
+              textAlign: "center",
+            }}
+          >
+            No Badges Yet
+          </h2>
+          <p
+            style={{
+              marginTop: "12px",
+              fontFamily: "Nunito, sans-serif",
+              fontSize: "14px",
+              color: "#7A6020",
+              textAlign: "center",
+              maxWidth: "280px",
+            }}
+          >
+            Complete courses and challenges to earn badges and unlock achievements.
+          </p>
+        </div>
+      ) : (
+        <div
+          className="mx-5"
+          style={{
+            marginTop: "24px",
+            paddingBottom: "40px",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "12px",
+          }}
+        >
         {badges.map((badge, index) => (
           <motion.div
             key={badge.id}
@@ -281,7 +215,8 @@ export default function BadgeGalleryScreen({ onNavigate }: BadgeGalleryScreenPro
             </h3>
           </motion.div>
         ))}
-      </div>
+        </div>
+      )}
 
       {/* Badge Detail Modal */}
       {selectedBadge && (

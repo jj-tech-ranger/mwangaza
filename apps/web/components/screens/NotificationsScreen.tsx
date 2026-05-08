@@ -22,7 +22,7 @@ export default function NotificationsScreen({ onNavigate }: NotificationsScreenP
       id: "1",
       type: "badge",
       title: "New Badge Earned!",
-      message: "You've earned the 'Addition Master' badge for completing 5 addition lessons.",
+      message: "You've earned the 'Learning Master' badge for completing 5 addition lessons.",
       time: "2 hours ago",
       read: false,
       icon: "➕",

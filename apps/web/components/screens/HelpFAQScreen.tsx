@@ -57,7 +57,7 @@ export default function HelpFAQScreen({ onNavigate }: HelpFAQScreenProps = {}) {
         {
           id: 7,
           question: "How many courses are available?",
-          answer: "We currently offer 4 main courses: Basic Math, English Communication, Kiswahili Literacy, and Home Management. More courses are added regularly based on community feedback.",
+          answer: "We currently offer 4 main courses: Mathematics, English Communication, Kiswahili Literacy, and Home Management. More courses are added regularly based on community feedback.",
         },
         {
           id: 8,

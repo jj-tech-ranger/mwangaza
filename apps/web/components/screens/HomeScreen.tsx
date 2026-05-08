@@ -8,16 +8,8 @@ interface HomeScreenProps {
 }
 
 export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
-  const lessons = [
-    { variant: "completed" as const, label: "Counting 1-10", number: 1, screen: "lesson" },
-    { variant: "completed" as const, label: "Basic Addition", number: 2, screen: "lesson" },
-    { variant: "active" as const, label: "Adding Two-Digit Numbers", number: 3, screen: "lesson" },
-    { variant: "upcoming" as const, label: "Subtraction Basics", number: 4, screen: "lesson" },
-    { variant: "upcoming" as const, label: "Borrowing in Subtraction", number: 5, screen: "lesson" },
-    { variant: "milestone" as const, label: "Module 1 Complete", number: 0, screen: "results" },
-    { variant: "locked" as const, label: "Multiplication Intro", number: 6, screen: "lesson" },
-    { variant: "locked" as const, label: "Times Tables", number: 7, screen: "lesson" },
-  ];
+  const lessons = [];
+  const hasLessons = false;
 
   return (
     <div
@@ -131,7 +123,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
               color: "#2D2006",
             }}
           >
-            Good morning, Amina 👋
+            Welcome back 👋
           </h2>
           <p
             style={{
@@ -140,7 +132,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
               color: "#A67C00",
             }}
           >
-            You're on a 5-day streak! 🔥
+            Ready to learn today?
           </p>
         </div>
 
@@ -210,7 +202,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
                 color: "#FFFFFF",
               }}
             >
-              5 Quick Math Questions
+              Complete a course to unlock lessons
             </h3>
             <p
               style={{
@@ -220,7 +212,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
                 marginTop: "4px",
               }}
             >
-              +50 bonus XP • Expires in 18h
+              Ready when you are
             </p>
           </div>
           <div
@@ -233,145 +225,56 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps = {}) {
         </div>
       </div>
 
-      {/* Section Label with Progress */}
-      <div className="mx-5 flex items-center justify-between" style={{ marginTop: "20px" }}>
-        <div>
-          <h3
-            style={{
-              fontFamily: "Nunito, sans-serif",
-              fontWeight: 900,
-              fontSize: "18px",
-              color: "#2D2006",
-            }}
-          >
-            Module 1: Basic Math
-          </h3>
-          <p
-            style={{
-              fontFamily: "Nunito, sans-serif",
-              fontSize: "12px",
-              color: "#A67C00",
-              marginTop: "2px",
-            }}
-          >
-            3 of 8 lessons complete • 38% done
-          </p>
-        </div>
-        <button
-          onClick={() => onNavigate?.("catalog")}
+      {/* Empty State */}
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{
+          marginTop: "40px",
+          paddingBottom: "20px",
+          flex: 1,
+        }}
+      >
+        <div style={{ fontSize: "64px", marginBottom: "20px", opacity: 0.5 }}>📚</div>
+        <h2
           style={{
             fontFamily: "Nunito, sans-serif",
-            fontSize: "13px",
+            fontWeight: 900,
+            fontSize: "20px",
+            color: "#2D2006",
+            textAlign: "center",
+          }}
+        >
+          No Courses Yet
+        </h2>
+        <p
+          style={{
+            marginTop: "12px",
+            fontFamily: "Nunito, sans-serif",
+            fontSize: "14px",
+            color: "#7A6020",
+            textAlign: "center",
+            maxWidth: "280px",
+          }}
+        >
+          Explore our course catalog to get started on your learning journey.
+        </p>
+        <button
+          onClick={() => onNavigate?.("learn")}
+          style={{
+            marginTop: "24px",
+            backgroundColor: "#D4A017",
+            color: "#FFFFFF",
+            fontFamily: "Nunito, sans-serif",
+            fontSize: "14px",
             fontWeight: 700,
-            color: "#D4A017",
-            background: "none",
+            padding: "12px 24px",
+            borderRadius: "100px",
             border: "none",
             cursor: "pointer",
           }}
         >
-          All Courses →
+          Browse Courses →
         </button>
-      </div>
-
-      {/* Learning Path */}
-      <div className="flex flex-col items-center" style={{ marginTop: "24px", paddingBottom: "20px" }}>
-        {lessons.map((lesson, index) => (
-          <div key={index} className="flex flex-col items-center">
-            {/* Lesson Node */}
-            <div
-              style={{ cursor: lesson.variant === "locked" ? "not-allowed" : "pointer" }}
-              onClick={() => lesson.variant !== "locked" && onNavigate?.(lesson.screen)}
-            >
-              <LessonNode variant={lesson.variant} label={lesson.label} number={lesson.number} />
-            </div>
-
-            {/* Connecting Line */}
-            {index < lessons.length - 1 && (
-              <div
-                style={{
-                  width: "3px",
-                  height: "60px",
-                  backgroundColor: "#D4A017",
-                  opacity: 0.3,
-                  marginTop: "8px",
-                  marginBottom: "8px",
-                }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Next Lesson Preview */}
-      <div className="mx-5" style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <div
-          style={{
-            backgroundColor: "#FEF5D4",
-            border: "1.5px solid #D4A017",
-            borderRadius: "20px",
-            padding: "16px",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div style={{ flex: 1 }}>
-              <p
-                style={{
-                  fontFamily: "Nunito, sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  color: "#A67C00",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                }}
-              >
-                UP NEXT
-              </p>
-              <h4
-                style={{
-                  fontFamily: "Nunito, sans-serif",
-                  fontWeight: 900,
-                  fontSize: "16px",
-                  color: "#2D2006",
-                  marginTop: "6px",
-                }}
-              >
-                {lessons.find(l => l.variant === "active")?.label || "Adding Two-Digit Numbers"}
-              </h4>
-              <p
-                style={{
-                  fontFamily: "Nunito, sans-serif",
-                  fontSize: "12px",
-                  color: "#7A6020",
-                  marginTop: "4px",
-                }}
-              >
-                Learn step-by-step addition • 10 min • +10 XP
-              </p>
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const activeLesson = lessons.find(l => l.variant === "active");
-                if (activeLesson) onNavigate?.(activeLesson.screen);
-              }}
-              style={{
-                backgroundColor: "#D4A017",
-                color: "#FFFFFF",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "13px",
-                fontWeight: 700,
-                padding: "10px 20px",
-                borderRadius: "100px",
-                border: "none",
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-                marginLeft: "12px",
-              }}
-            >
-              Start →
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* Bottom Navigation */}

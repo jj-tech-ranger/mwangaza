@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 import ProgressBar from "@/components/shared/ProgressBar";
-import AdditionIllustration from "@/components/shared/AdditionIllustration";
+import LearningIllustration from "@/components/shared/LearningIllustration";
 import TapToReveal from "@/components/shared/TapToReveal";
 const logoSvg = "/imports/mwangaza_logo_final.svg";
 
@@ -85,7 +85,7 @@ export default function LessonView({ onNavigate }: LessonViewProps = {}) {
             letterSpacing: "0.3px",
           }}
         >
-          Basic Math › Module 2 › Lesson 3
+          Mathematics › Module 2 › Lesson 3
         </p>
         <h1
           style={{
@@ -121,7 +121,7 @@ export default function LessonView({ onNavigate }: LessonViewProps = {}) {
 
       {/* Illustration Card */}
       <div className="mx-5" style={{ marginTop: "12px" }}>
-        <AdditionIllustration />
+        <LearningIllustration />
       </div>
 
       {/* Explanation Text */}

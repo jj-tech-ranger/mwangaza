@@ -18,12 +18,8 @@ export default function ProfileScreen({ onNavigate }: ProfileScreenProps = {}) {
     { value: 3, label: "Badges" },
   ];
 
-  const badges = [
-    { emoji: "🔢", name: "Counting", variant: "earned" as const },
-    { emoji: "➕", name: "Addition", variant: "earned" as const },
-    { emoji: "💯", name: "Perfect Score", variant: "earned" as const },
-    { emoji: "✖️", name: "Multiplication", variant: "locked" as const },
-  ];
+  const badges = [];
+  const hasBadges = false;
 
   return (
     <div
@@ -163,7 +159,7 @@ export default function ProfileScreen({ onNavigate }: ProfileScreenProps = {}) {
         {/* Certificate card */}
         <div style={{ marginTop: "12px" }} onClick={() => onNavigate?.("certificateDetail")}>
           <CertificateCard
-            title="Basic Math"
+            title="Mathematics"
             issuedDate="May 2026"
             certificateNumber="MW-00142"
           />

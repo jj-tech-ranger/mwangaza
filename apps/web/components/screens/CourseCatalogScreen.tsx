@@ -13,57 +13,8 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
 
   const filters = ["All", "Math", "English", "Life Skills", "Wellness"];
 
-  const courses = [
-    {
-      emoji: "📐",
-      title: "Basic Math",
-      modules: 6,
-      lessons: 32,
-      variant: "enrolled" as const,
-      progress: 65,
-      currentModule: "Module 2 of 6",
-    },
-    {
-      emoji: "💬",
-      title: "English Communication",
-      modules: 8,
-      lessons: 24,
-      variant: "comingSoon" as const,
-      comingSoonText: "Coming Q2",
-    },
-    {
-      emoji: "🇰🇪",
-      title: "Kiswahili Literacy",
-      modules: 5,
-      lessons: 20,
-      variant: "comingSoon" as const,
-      comingSoonText: "Coming Q3",
-    },
-    {
-      emoji: "🍳",
-      title: "Home Management",
-      modules: 4,
-      lessons: 16,
-      variant: "comingSoon" as const,
-      comingSoonText: "Coming Q3",
-    },
-    {
-      emoji: "🩺",
-      title: "First Aid",
-      modules: 3,
-      lessons: 12,
-      variant: "comingSoon" as const,
-      comingSoonText: "Coming Q4",
-    },
-    {
-      emoji: "🧠",
-      title: "Wellness",
-      modules: 4,
-      lessons: 18,
-      variant: "comingSoon" as const,
-      comingSoonText: "Coming Q4",
-    },
-  ];
+  const courses = [];
+  const hasEnrolledCourses = false;
 
   const enrolledCourse = courses.find((c) => c.variant === "enrolled");
   const availableCourses = courses.filter((c) => c.variant !== "enrolled");
@@ -220,128 +171,39 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
         })}
       </div>
 
-      {/* Enrolled Section */}
-      <div className="mx-5" style={{ marginTop: "24px" }}>
+      {/* Empty State */}
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{
+          marginTop: "60px",
+          paddingBottom: "20px",
+          flex: 1,
+        }}
+      >
+        <Sun size={64} color="#D4A017" style={{ marginBottom: "20px", opacity: 0.3 }} />
         <h2
           style={{
             fontFamily: "Nunito, sans-serif",
-            fontSize: "13px",
-            fontWeight: 700,
-            color: "#A67C00",
-            textTransform: "uppercase",
-            letterSpacing: "1.5px",
+            fontWeight: 900,
+            fontSize: "20px",
+            color: "#2D2006",
+            textAlign: "center",
           }}
         >
-          Currently Enrolled
+          No Courses Available Yet
         </h2>
-
-        {/* Enrolled Card */}
-        {enrolledCourse && (
-          <div
-            className="flex items-center gap-4"
-            style={{
-              marginTop: "12px",
-              backgroundColor: "#D4A017",
-              borderRadius: "20px",
-              padding: "20px",
-              minHeight: "100px",
-            }}
-          >
-            <Sun size={36} color="#FFFFFF" strokeWidth={2.5} />
-
-            <div className="flex-1">
-              <h3
-                style={{
-                  fontFamily: "Nunito, sans-serif",
-                  fontWeight: 900,
-                  fontSize: "18px",
-                  color: "#FFFFFF",
-                }}
-              >
-                {enrolledCourse.title}
-              </h3>
-
-              {/* Progress bar */}
-              <div
-                style={{
-                  marginTop: "8px",
-                  width: "100%",
-                  height: "6px",
-                  backgroundColor: "rgba(255, 255, 255, 0.3)",
-                  borderRadius: "100px",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    width: `${enrolledCourse.progress}%`,
-                    height: "100%",
-                    backgroundColor: "#FFFFFF",
-                    borderRadius: "100px",
-                  }}
-                />
-              </div>
-
-              <p
-                style={{
-                  marginTop: "6px",
-                  fontFamily: "Nunito, sans-serif",
-                  fontSize: "12px",
-                  color: "#FFFFFF",
-                }}
-              >
-                {enrolledCourse.currentModule} · Lesson 4
-              </p>
-            </div>
-
-            <button
-              onClick={() => onNavigate?.("home")}
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: "#D4A017",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "13px",
-                fontWeight: 700,
-                padding: "8px 16px",
-                height: "32px",
-                borderRadius: "100px",
-                border: "none",
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Resume →
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Available Courses Grid */}
-      <div className="mx-5" style={{ marginTop: "24px", paddingBottom: "20px" }}>
-        <div
+        <p
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "12px",
+            marginTop: "12px",
+            fontFamily: "Nunito, sans-serif",
+            fontSize: "14px",
+            color: "#7A6020",
+            textAlign: "center",
+            maxWidth: "280px",
           }}
         >
-          {availableCourses.map((course, index) => (
-            <div
-              key={index}
-              onClick={() => course.variant !== "comingSoon" && onNavigate?.("courseDetails")}
-              style={{ cursor: course.variant !== "comingSoon" ? "pointer" : "default" }}
-            >
-              <CourseCard
-                variant={course.variant}
-                emoji={course.emoji}
-                title={course.title}
-                modules={course.modules}
-                lessons={course.lessons}
-                comingSoonText={course.comingSoonText}
-              />
-            </div>
-          ))}
-        </div>
+          Check back soon for exciting new courses to explore and grow your skills.
+        </p>
       </div>
 
       {/* Bottom Navigation */}

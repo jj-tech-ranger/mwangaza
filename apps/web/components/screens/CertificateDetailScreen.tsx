@@ -169,7 +169,7 @@ export default function CertificateDetailScreen({ onNavigate }: CertificateDetai
                 textAlign: "center",
               }}
             >
-              Basic Math
+              Mathematics
             </h1>
 
             <p
@@ -209,7 +209,7 @@ export default function CertificateDetailScreen({ onNavigate }: CertificateDetai
                 maxWidth: "260px",
               }}
             >
-              has successfully completed all 6 modules and earned 450 XP in the Basic Math course
+              has successfully completed all 6 modules and earned 450 XP in the Mathematics course
             </p>
 
             {/* Date and ID */}

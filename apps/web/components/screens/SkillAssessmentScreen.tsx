@@ -97,7 +97,7 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
       return {
         level: "Advanced",
         message: "Great job! Start with Module 3 to challenge yourself.",
-        startModule: "Module 3: Multiplication",
+        startModule: "Module 3: Growth",
       };
     } else if (score >= 50) {
       return {
@@ -109,7 +109,7 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
       return {
         level: "Beginner",
         message: "Perfect starting point! Begin with Module 1 basics.",
-        startModule: "Module 1: Basic Math",
+        startModule: "Module 1: Mathematics",
       };
     }
   };
@@ -331,9 +331,9 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
             </h3>
             <div className="flex flex-col gap-3">
               {[
-                { skill: "Basic Addition", score: 90 },
-                { skill: "Subtraction", score: score >= 80 ? 85 : 60 },
-                { skill: "Multiplication", score: score >= 80 ? 75 : 40 },
+                { skill: "Basic Learning", score: 90 },
+                { skill: "Progress", score: score >= 80 ? 85 : 60 },
+                { skill: "Growth", score: score >= 80 ? 75 : 40 },
                 { skill: "Number Recognition", score: 95 },
               ].map((item, index) => (
                 <div key={index}>

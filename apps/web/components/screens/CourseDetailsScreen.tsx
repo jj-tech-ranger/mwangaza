@@ -11,7 +11,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
   const modules = [
     {
       number: 1,
-      title: "Counting & Number Recognition",
+      title: "Skills & Number Recognition",
       lessons: 5,
       duration: "25 min",
       locked: false,
@@ -19,7 +19,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
     },
     {
       number: 2,
-      title: "Basic Addition",
+      title: "Basic Learning",
       lessons: 8,
       duration: "40 min",
       locked: false,
@@ -27,7 +27,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
     },
     {
       number: 3,
-      title: "Basic Subtraction",
+      title: "Basic Progress",
       lessons: 8,
       duration: "40 min",
       locked: true,
@@ -35,7 +35,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
     },
     {
       number: 4,
-      title: "Multiplication Basics",
+      title: "Growth Basics",
       lessons: 10,
       duration: "50 min",
       locked: true,
@@ -43,7 +43,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
     },
     {
       number: 5,
-      title: "Division Basics",
+      title: "Achievement Basics",
       lessons: 10,
       duration: "50 min",
       locked: true,
@@ -132,7 +132,7 @@ export default function CourseDetailsScreen({ onNavigate }: CourseDetailsScreenP
               color: "#2D2006",
             }}
           >
-            Basic Math
+            Mathematics
           </h1>
 
           <p

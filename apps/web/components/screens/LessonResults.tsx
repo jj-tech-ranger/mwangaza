@@ -36,7 +36,7 @@ export default function LessonResults({ onNavigate }: LessonResultsProps = {}) {
         <AchievementToast
           type="badge"
           title="Badge Earned!"
-          description="Addition Master - Complete 5 addition lessons"
+          description="Learning Master - Complete 5 addition lessons"
           emoji="➕"
           onClose={() => setShowAchievement(false)}
         />

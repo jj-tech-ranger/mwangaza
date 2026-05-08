@@ -26,7 +26,7 @@ export default function AdminAnalyticsScreen({ onNavigate }: AdminAnalyticsScree
   ];
 
   const courseDistribution = [
-    { name: "Basic Math", value: 1248, color: "#D4A017" },
+    { name: "Mathematics", value: 1248, color: "#D4A017" },
     { name: "English", value: 0, color: "#C8930A" },
     { name: "Kiswahili", value: 0, color: "#A67C00" },
     { name: "Life Skills", value: 0, color: "#FDF0C2" },

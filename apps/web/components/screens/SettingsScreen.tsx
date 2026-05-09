@@ -1,9 +1,9 @@
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 import BottomNav from "@/components/shared/BottomNav";
 import SettingsSection from "@/components/shared/SettingsSection";
 import SettingsRow from "@/components/shared/SettingsRow";
-const logoSvg = "/imports/mwangaza_logo_final.svg";
 
 interface SettingsScreenProps {
   onNavigate?: (screen: string) => void;
@@ -18,6 +18,9 @@ export default function SettingsScreen({ onNavigate }: SettingsScreenProps = {})
   const [dailyGoal, setDailyGoal] = useState("10 min");
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
   const [showGoalPicker, setShowGoalPicker] = useState(false);
+  const avatarInitials = "";
+  const accountEmail = "";
+  const accountPhone = "";
 
   const languages = ["English", "Kiswahili", "Français", "العربية"];
   const goals = ["5 min", "10 min", "15 min", "20 min", "30 min"];
@@ -75,7 +78,7 @@ export default function SettingsScreen({ onNavigate }: SettingsScreenProps = {})
         </h1>
 
         {/* Logo */}
-        <img src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" style={{ height: "32px", width: "auto" }} />
+        <Image src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" width={32} height={32} />
       </div>
 
       {/* Avatar Section */}
@@ -96,7 +99,7 @@ export default function SettingsScreen({ onNavigate }: SettingsScreenProps = {})
             color: "#A67C00",
           }}
         >
-          AW
+          {avatarInitials}
         </div>
 
         <button
@@ -120,8 +123,8 @@ export default function SettingsScreen({ onNavigate }: SettingsScreenProps = {})
       <div className="mx-5 flex flex-col gap-4" style={{ marginTop: "32px" }}>
         {/* Account Section */}
         <SettingsSection title="Account">
-          <SettingsRow icon="📧" label="Email" variant="value" value="amina@example.com" />
-          <SettingsRow icon="📱" label="Phone" variant="value" value="+254 712 345 678" />
+          <SettingsRow icon="📧" label="Email" variant="value" value={accountEmail} />
+          <SettingsRow icon="📱" label="Phone" variant="value" value={accountPhone} />
           <SettingsRow icon="🔒" label="Password" variant="link" linkText="Change" />
           <SettingsRow icon="🖼" label="Avatar" variant="chevron" />
         </SettingsSection>

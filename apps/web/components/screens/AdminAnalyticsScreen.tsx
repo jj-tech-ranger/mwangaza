@@ -1,36 +1,22 @@
-import { TrendingUp, Users, BookOpen, Award, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import AdminSidebar from "@/components/shared/AdminSidebar";
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface AdminAnalyticsScreenProps {
   onNavigate?: (screen: string) => void;
 }
 
 export default function AdminAnalyticsScreen({ onNavigate }: AdminAnalyticsScreenProps = {}) {
-  const userGrowthData = [
-    { id: "jan", month: "Jan", users: 245 },
-    { id: "feb", month: "Feb", users: 412 },
-    { id: "mar", month: "Mar", users: 687 },
-    { id: "apr", month: "Apr", users: 921 },
-    { id: "may", month: "May", users: 1248 },
-  ];
-
-  const engagementData = [
-    { id: "mon", day: "Mon", active: 180, completed: 420 },
-    { id: "tue", day: "Tue", active: 210, completed: 580 },
-    { id: "wed", day: "Wed", active: 245, completed: 710 },
-    { id: "thu", day: "Thu", active: 198, completed: 650 },
-    { id: "fri", day: "Fri", active: 267, completed: 820 },
-    { id: "sat", day: "Sat", active: 189, completed: 590 },
-    { id: "sun", day: "Sun", active: 145, completed: 480 },
-  ];
-
-  const courseDistribution = [
-    { name: "Mathematics", value: 1248, color: "#D4A017" },
-    { name: "English", value: 0, color: "#C8930A" },
-    { name: "Kiswahili", value: 0, color: "#A67C00" },
-    { name: "Life Skills", value: 0, color: "#FDF0C2" },
-  ];
+  const userGrowthData: Array<{ id: string; month: string; users: number }> = [];
+  const engagementData: Array<{ id: string; day: string; active: number; completed: number }> = [];
+  const courseDistribution: Array<{ name: string; value: number; color: string }> = [];
+  const kpis: Array<{
+    icon: (props: { size?: number; color?: string }) => JSX.Element;
+    label: string;
+    value: string;
+    trend: string;
+    color: string;
+  }> = [];
 
   return (
     <div
@@ -109,12 +95,7 @@ export default function AdminAnalyticsScreen({ onNavigate }: AdminAnalyticsScree
             marginBottom: "24px",
           }}
         >
-          {[
-            { icon: Users, label: "Total Users", value: "1,248", trend: "+12%", color: "#D4A017" },
-            { icon: BookOpen, label: "Lessons Completed", value: "8,402", trend: "+8%", color: "#22C55E" },
-            { icon: TrendingUp, label: "Active Today", value: "234", trend: "+5%", color: "#C8930A" },
-            { icon: Award, label: "Certificates Issued", value: "89", trend: "+15%", color: "#A67C00" },
-          ].map((kpi, index) => {
+          {kpis.map((kpi, index) => {
             const Icon = kpi.icon;
             return (
               <div

@@ -8,11 +8,7 @@ interface Course {
 }
 
 export default function CourseTable() {
-  const courses: Course[] = [
-    { name: "Basic Math", slug: "basic-math", modules: 6, status: "published" },
-    { name: "English Communication", slug: "english-comm", modules: 0, status: "draft" },
-    { name: "Kiswahili Literacy", slug: "kiswahili-lit", modules: 0, status: "draft" },
-  ];
+  const courses: Course[] = [];
 
   return (
     <div
@@ -94,6 +90,8 @@ export default function CourseTable() {
           Actions
         </span>
       </div>
+
+      {courses.length === 0 && <div style={{ height: "64px" }} />}
 
       {/* Rows */}
       {courses.map((course, index) => (

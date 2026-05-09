@@ -1,15 +1,33 @@
-import { ArrowLeft, TrendingUp, Target, Calendar, Award, Flame } from "lucide-react";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { ArrowLeft } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import BottomNav from "@/components/shared/BottomNav";
+import type { ComponentType, CSSProperties } from "react";
 
 interface ProgressAnalyticsScreenProps {
   onNavigate?: (screen: string) => void;
 }
 
+type WeeklyXpPoint = { day: string; xp: number };
+
+type MonthlyProgressPoint = { week: string; lessons: number };
+
+type StatItem = {
+  icon: ComponentType<{ size?: number; color?: string; style?: CSSProperties }>;
+  value: string;
+  label: string;
+};
+
+type Insight = { label: string; value: string; sublabel: string };
+
+type MonthlyGoal = { percent: number; label: string };
+
 export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalyticsScreenProps = {}) {
-  const weeklyXP: any[] = [];
-  const monthlyProgress: any[] = [];
-  const stats: any[] = [];
+  const weeklyXP: WeeklyXpPoint[] = [];
+  const monthlyProgress: MonthlyProgressPoint[] = [];
+  const stats: StatItem[] = [];
+  const insights: Insight[] = [];
+  let weeklyXpSummary: string | null = null;
+  let monthlyGoal: MonthlyGoal | null = null;
 
   return (
     <div
@@ -135,19 +153,21 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
             >
               Weekly XP
             </h2>
-            <div
-              style={{
-                backgroundColor: "#FEF5D4",
-                color: "#A67C00",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "12px",
-                fontWeight: 700,
-                padding: "4px 12px",
-                borderRadius: "100px",
-              }}
-            >
-              440 XP this week
-            </div>
+            {weeklyXpSummary && (
+              <div
+                style={{
+                  backgroundColor: "#FEF5D4",
+                  color: "#A67C00",
+                  fontFamily: "Nunito, sans-serif",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  padding: "4px 12px",
+                  borderRadius: "100px",
+                }}
+              >
+                {weeklyXpSummary}
+              </div>
+            )}
           </div>
           <ResponsiveContainer width="100%" height={180} key="weekly-xp-chart">
             <BarChart data={weeklyXP} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -202,7 +222,7 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
             Monthly Lessons
           </h2>
           <ResponsiveContainer width="100%" height={180} key="monthly-lessons-chart">
-            <LineChart data={monthlyProgress} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
+            <BarChart data={monthlyProgress} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
               <CartesianGrid key="ml-grid" strokeDasharray="3 3" stroke="#FEF5D4" vertical={false} />
               <XAxis
                 key="ml-xaxis"
@@ -226,15 +246,14 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
                   fontFamily: "Nunito, sans-serif",
                 }}
               />
-              <Line
-                key="ml-line"
-                type="monotone"
+              <Bar
+                key="ml-bar"
                 dataKey="lessons"
-                stroke="#C8930A"
-                strokeWidth={3}
-                dot={{ fill: "#C8930A", strokeWidth: 2, r: 5 }}
+                fill="#C8930A"
+                radius={[8, 8, 0, 0]}
+                maxBarSize={30}
               />
-            </LineChart>
+            </BarChart>
           </ResponsiveContainer>
         </div>
 
@@ -260,12 +279,8 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
             Study Insights
           </h2>
           <div className="flex flex-col gap-3">
-            {[
-              { label: "Most active day", value: "Friday", sublabel: "95 XP average" },
-              { label: "Avg. study time", value: "18 min/day", sublabel: "This week" },
-              { label: "Completion rate", value: "92%", sublabel: "Lessons finished" },
-              { label: "Current level", value: "Msomi ⭐", sublabel: "Next: Bingwa at 1,500 XP" },
-            ].map((insight, index) => (
+            {insights.length === 0 && <div style={{ height: "96px" }} />}
+            {insights.map((insight, index) => (
               <div
                 key={index}
                 style={{
@@ -333,16 +348,18 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
             >
               Monthly Goal
             </h2>
-            <span
-              style={{
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "14px",
-                fontWeight: 700,
-                color: "#D4A017",
-              }}
-            >
-              75%
-            </span>
+            {monthlyGoal && (
+              <span
+                style={{
+                  fontFamily: "Nunito, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#D4A017",
+                }}
+              >
+                {monthlyGoal.percent}%
+              </span>
+            )}
           </div>
           <div
             style={{
@@ -354,24 +371,28 @@ export default function ProgressAnalyticsScreen({ onNavigate }: ProgressAnalytic
               marginBottom: "8px",
             }}
           >
-            <div
-              style={{
-                width: "75%",
-                height: "100%",
-                backgroundColor: "#D4A017",
-                borderRadius: "100px",
-              }}
-            />
+            {monthlyGoal && (
+              <div
+                style={{
+                  width: `${monthlyGoal.percent}%`,
+                  height: "100%",
+                  backgroundColor: "#D4A017",
+                  borderRadius: "100px",
+                }}
+              />
+            )}
           </div>
-          <p
-            style={{
-              fontFamily: "Nunito, sans-serif",
-              fontSize: "13px",
-              color: "#7A6020",
-            }}
-          >
-            45 of 60 lessons completed this month
-          </p>
+          {monthlyGoal && (
+            <p
+              style={{
+                fontFamily: "Nunito, sans-serif",
+                fontSize: "13px",
+                color: "#7A6020",
+              }}
+            >
+              {monthlyGoal.label}
+            </p>
+          )}
         </div>
       </div>
 

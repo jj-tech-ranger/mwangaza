@@ -9,8 +9,16 @@ interface AdminCoursesScreenProps {
 export default function AdminCoursesScreen({ onNavigate }: AdminCoursesScreenProps = {}) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const courses = [];
-  const hasEnrolledCourses = false;
+  const courses: Array<{
+    id: string;
+    title: string;
+    emoji: string;
+    modules: number;
+    lessons: number;
+    students: number;
+    status: "active" | "draft";
+    lastUpdated: string;
+  }> = [];
 
   return (
     <div

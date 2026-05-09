@@ -6,10 +6,25 @@ interface AdminUsersScreenProps {
   onNavigate?: (screen: string) => void;
 }
 
+type AdminUser = {
+  id: string;
+  initials: string;
+  name: string;
+  email: string;
+  level: string;
+  xp: number;
+  courses: number;
+  joined: string;
+  lastActive: string;
+  status: "active" | "inactive" | "suspended";
+};
+
 export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps = {}) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const users: any[] = [];
+  const users: AdminUser[] = [];
+  const stats: Array<{ label: string; value: string; change: string; color: string }> = [];
+  const todayLabel = "";
 
   return (
     <div
@@ -58,19 +73,21 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
           </div>
 
           <div className="flex items-center gap-3">
-            <div
-              style={{
-                backgroundColor: "#FEF5D4",
-                color: "#A67C00",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "13px",
-                fontWeight: 700,
-                padding: "8px 16px",
-                borderRadius: "100px",
-              }}
-            >
-              May 8, 2026
-            </div>
+            {todayLabel && (
+              <div
+                style={{
+                  backgroundColor: "#FEF5D4",
+                  color: "#A67C00",
+                  fontFamily: "Nunito, sans-serif",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  padding: "8px 16px",
+                  borderRadius: "100px",
+                }}
+              >
+                {todayLabel}
+              </div>
+            )}
           </div>
         </div>
 
@@ -83,12 +100,8 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
             marginBottom: "24px",
           }}
         >
-          {[
-            { label: "Total Users", value: "1,248", change: "+12%", color: "#D4A017" },
-            { label: "Active Today", value: "234", change: "+5%", color: "#22C55E" },
-            { label: "New This Week", value: "89", change: "+18%", color: "#C8930A" },
-            { label: "Premium Users", value: "156", change: "+23%", color: "#A67C00" },
-          ].map((stat, index) => (
+          {stats.length === 0 && <div style={{ height: "96px" }} />}
+          {stats.map((stat, index) => (
             <div
               key={index}
               style={{
@@ -234,6 +247,8 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
             ))}
           </div>
 
+          {users.length === 0 && <div style={{ height: "64px" }} />}
+
           {/* Table Body */}
           {users.map((user, index) => (
             <div
@@ -258,19 +273,17 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontFamily: "Nunito, sans-serif",
                     fontWeight: 700,
-                    fontSize: "14px",
                     color: "#A67C00",
                   }}
                 >
-                  {user.avatar}
+                  {user.initials}
                 </div>
                 <div>
                   <p
                     style={{
                       fontFamily: "Nunito, sans-serif",
-                      fontSize: "15px",
+                      fontSize: "14px",
                       fontWeight: 700,
                       color: "#2D2006",
                     }}
@@ -280,9 +293,8 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
                   <p
                     style={{
                       fontFamily: "Nunito, sans-serif",
-                      fontSize: "13px",
+                      fontSize: "12px",
                       color: "#7A6020",
-                      marginTop: "2px",
                     }}
                   >
                     {user.email}
@@ -299,7 +311,7 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
                   color: "#A67C00",
                 }}
               >
-                ⭐ {user.level}
+                {user.level}
               </div>
 
               {/* XP */}
@@ -307,8 +319,7 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
                 style={{
                   fontFamily: "Nunito, sans-serif",
                   fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#D4A017",
+                  color: "#7A6020",
                 }}
               >
                 {user.xp} XP
@@ -329,19 +340,19 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
               <div
                 style={{
                   fontFamily: "Nunito, sans-serif",
-                  fontSize: "13px",
+                  fontSize: "14px",
                   color: "#7A6020",
                 }}
               >
-                {user.joinDate}
+                {user.joined}
               </div>
 
               {/* Last Active */}
               <div
                 style={{
                   fontFamily: "Nunito, sans-serif",
-                  fontSize: "13px",
-                  color: user.status === "active" ? "#22C55E" : "#EF4444",
+                  fontSize: "14px",
+                  color: "#7A6020",
                 }}
               >
                 {user.lastActive}
@@ -369,21 +380,33 @@ export default function AdminUsersScreen({ onNavigate }: AdminUsersScreenProps =
                   style={{
                     width: "32px",
                     height: "32px",
-                    backgroundColor: user.status === "suspended" ? "#D1FAE5" : "#FFF5F5",
-                    border: `1px solid ${user.status === "suspended" ? "#22C55E" : "#EF4444"}33`,
+                    backgroundColor: "#FEF5D4",
+                    border: "1px solid rgba(212, 160, 23, 0.3)",
                     borderRadius: "8px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     cursor: "pointer",
                   }}
-                  title={user.status === "suspended" ? "Activate" : "Suspend"}
+                  title="Suspend"
                 >
-                  {user.status === "suspended" ? (
-                    <CheckCircle size={16} color="#22C55E" />
-                  ) : (
-                    <Ban size={16} color="#EF4444" />
-                  )}
+                  <Ban size={16} color="#A67C00" />
+                </button>
+                <button
+                  style={{
+                    width: "32px",
+                    height: "32px",
+                    backgroundColor: "#FEF5D4",
+                    border: "1px solid rgba(212, 160, 23, 0.3)",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                  title="Verify"
+                >
+                  <CheckCircle size={16} color="#A67C00" />
                 </button>
               </div>
             </div>

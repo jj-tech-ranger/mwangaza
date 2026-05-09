@@ -86,11 +86,11 @@ function PodiumUser({ rank, name, xp, avatar }: PodiumUserProps) {
 }
 
 export default function Podium() {
-  const users = [
-    { rank: 2 as const, name: "Kwame", xp: 980, avatar: "KO" },
-    { rank: 1 as const, name: "Njeri", xp: 1240, avatar: "NM" },
-    { rank: 3 as const, name: "Fatima", xp: 856, avatar: "FA" },
-  ];
+  const users: Array<PodiumUserProps> = [];
+
+  if (users.length === 0) {
+    return <div style={{ height: "120px" }} />;
+  }
 
   return (
     <div className="flex items-end gap-2" style={{ alignItems: "flex-end" }}>

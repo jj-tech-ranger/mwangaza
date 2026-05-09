@@ -1,4 +1,4 @@
-import { ArrowLeft, Search, BookOpen, FileText, Video, Award } from "lucide-react";
+import { ArrowLeft, Search, BookOpen, FileText, Award } from "lucide-react";
 import { useState } from "react";
 import BottomNav from "@/components/shared/BottomNav";
 
@@ -6,76 +6,46 @@ interface SearchResultsScreenProps {
   onNavigate?: (screen: string) => void;
 }
 
-export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenProps = {}) {
-  const [searchQuery, setSearchQuery] = useState("addition");
-  const [activeFilter, setActiveFilter] = useState<"all" | "lessons" | "courses" | "articles">("all");
+type FilterId = "all" | "lessons" | "courses" | "articles";
 
-  const results = {
-    lessons: [
-      {
-        id: 1,
-        type: "lesson",
-        title: "Basic Learning",
-        course: "Mathematics",
-        module: "Module 1",
-        duration: "8 min",
-        completed: true,
-      },
-      {
-        id: 2,
-        type: "lesson",
-        title: "Adding Two-Digit Numbers",
-        course: "Mathematics",
-        module: "Module 2",
-        duration: "12 min",
-        completed: false,
-      },
-      {
-        id: 3,
-        type: "lesson",
-        title: "Learning Word Problems",
-        course: "Mathematics",
-        module: "Module 3",
-        duration: "10 min",
-        completed: false,
-      },
-    ],
-    courses: [
-      {
-        id: 1,
-        type: "course",
-        title: "Mathematics",
-        emoji: "📐",
-        lessons: 53,
-        enrolled: true,
-        progress: 38,
-      },
-      {
-        id: 2,
-        type: "course",
-        title: "Advanced Math",
-        emoji: "🔢",
-        lessons: 64,
-        enrolled: false,
-        progress: 0,
-      },
-    ],
-    articles: [
-      {
-        id: 1,
-        type: "article",
-        title: "Tips for Learning Learning",
-        category: "Study Tips",
-        readTime: "3 min",
-      },
-      {
-        id: 2,
-        type: "article",
-        title: "Real-World Applications of Learning",
-        category: "Math Guide",
-        readTime: "5 min",
-      },
-    ],
+type LessonResult = {
+  id: number;
+  type: "lesson";
+  title: string;
+  course: string;
+  module: string;
+  duration: string;
+  completed: boolean;
+};
+
+type CourseResult = {
+  id: number;
+  type: "course";
+  title: string;
+  emoji: string;
+  lessons: number;
+  enrolled: boolean;
+  progress: number;
+};
+
+type ArticleResult = {
+  id: number;
+  type: "article";
+  title: string;
+  category: string;
+  readTime: string;
+};
+
+type SearchResult = LessonResult | CourseResult | ArticleResult;
+
+export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenProps = {}) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState<FilterId>("all");
+
+  const results: { lessons: LessonResult[]; courses: CourseResult[]; articles: ArticleResult[] } = {
+    lessons: [],
+    courses: [],
+    articles: [],
   };
 
   const allResults = [
@@ -84,7 +54,7 @@ export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenP
     ...results.articles,
   ];
 
-  const filteredResults =
+  const filteredResults: SearchResult[] =
     activeFilter === "all"
       ? allResults
       : activeFilter === "lessons"
@@ -188,15 +158,15 @@ export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenP
           overflowX: "auto",
         }}
       >
-        {[
+        {([
           { id: "all", label: "All", count: allResults.length },
           { id: "courses", label: "Courses", count: results.courses.length },
           { id: "lessons", label: "Lessons", count: results.lessons.length },
           { id: "articles", label: "Articles", count: results.articles.length },
-        ].map((filter) => (
+        ] as Array<{ id: FilterId; label: string; count: number }>).map((filter) => (
           <button
             key={filter.id}
-            onClick={() => setActiveFilter(filter.id as any)}
+            onClick={() => setActiveFilter(filter.id)}
             style={{
               padding: "8px 16px",
               backgroundColor: activeFilter === filter.id ? "#D4A017" : "#FEF5D4",
@@ -216,17 +186,19 @@ export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenP
       </div>
 
       {/* Results Count */}
-      <div style={{ padding: "16px 20px" }}>
-        <p
-          style={{
-            fontFamily: "Nunito, sans-serif",
-            fontSize: "14px",
-            color: "#7A6020",
-          }}
-        >
-          {totalResults} results for "{searchQuery}"
-        </p>
-      </div>
+      {searchQuery && (
+        <div style={{ padding: "16px 20px" }}>
+          <p
+            style={{
+              fontFamily: "Nunito, sans-serif",
+              fontSize: "14px",
+              color: "#7A6020",
+            }}
+          >
+            {totalResults} results for &quot;{searchQuery}&quot;
+          </p>
+        </div>
+      )}
 
       {/* Results List */}
       <div
@@ -237,7 +209,7 @@ export default function SearchResultsScreen({ onNavigate }: SearchResultsScreenP
         }}
       >
         <div className="flex flex-col gap-3">
-          {filteredResults.map((result: any) => {
+          {filteredResults.map((result) => {
             if (result.type === "course") {
               return (
                 <div

@@ -3,12 +3,14 @@ import { LucideIcon } from "lucide-react";
 interface StatCardProps {
   icon: LucideIcon;
   label: string;
-  value: number;
+  value?: number | null;
   change?: string;
   changePositive?: boolean;
 }
 
 export default function StatCard({ icon: Icon, label, value, change, changePositive }: StatCardProps) {
+  const hasValue = value !== null && value !== undefined;
+
   return (
     <div
       style={{
@@ -49,17 +51,21 @@ export default function StatCard({ icon: Icon, label, value, change, changePosit
         {label}
       </p>
 
-      <h3
-        style={{
-          fontFamily: "Nunito, sans-serif",
-          fontWeight: 900,
-          fontSize: "32px",
-          color: "#D4A017",
-          lineHeight: 1,
-        }}
-      >
-        {value.toLocaleString()}
-      </h3>
+      {hasValue ? (
+        <h3
+          style={{
+            fontFamily: "Nunito, sans-serif",
+            fontWeight: 900,
+            fontSize: "32px",
+            color: "#D4A017",
+            lineHeight: 1,
+          }}
+        >
+          {value.toLocaleString()}
+        </h3>
+      ) : (
+        <div style={{ height: "32px" }} />
+      )}
 
       {change && (
         <p

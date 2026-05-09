@@ -1,8 +1,7 @@
 import { useState } from "react";
+import Image from "next/image";
 import BottomNav from "@/components/shared/BottomNav";
 import Podium from "@/components/shared/Podium";
-import LeaderboardRow from "@/components/shared/LeaderboardRow";
-const logoSvg = "/imports/mwangaza_logo_final.svg";
 
 interface LeaderboardScreenProps {
   onNavigate?: (screen: string) => void;
@@ -10,15 +9,6 @@ interface LeaderboardScreenProps {
 
 export default function LeaderboardScreen({ onNavigate }: LeaderboardScreenProps = {}) {
   const [activeTab, setActiveTab] = useState<"week" | "alltime" | "friends">("week");
-
-  // Empty leaderboard
-  const leaderboardData = {
-    week: [],
-    alltime: [],
-    friends: [],
-  };
-
-  const leaderboardUsers = leaderboardData[activeTab];
 
   return (
     <div
@@ -41,7 +31,7 @@ export default function LeaderboardScreen({ onNavigate }: LeaderboardScreenProps
           backgroundColor: "#FFFDF5",
         }}
       >
-        <img src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" style={{ height: "32px", width: "auto" }} />
+        <Image src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" width={32} height={32} />
 
         <div className="flex items-center gap-2">
           <div
@@ -60,23 +50,7 @@ export default function LeaderboardScreen({ onNavigate }: LeaderboardScreenProps
               color: "#A67C00",
               cursor: "pointer",
             }}
-          >
-            A
-          </div>
-          <div
-            onClick={() => onNavigate?.("profile")}
-            style={{
-              backgroundColor: "#FDF0C2",
-              color: "#A67C00",
-              fontWeight: 700,
-              fontSize: "12px",
-              padding: "6px 12px",
-              borderRadius: "100px",
-              cursor: "pointer",
-            }}
-          >
-            ⚡ 340 XP
-          </div>
+          />
         </div>
       </div>
 
@@ -122,104 +96,13 @@ export default function LeaderboardScreen({ onNavigate }: LeaderboardScreenProps
         </div>
       </div>
 
-      {/* User's Own Rank Card */}
-      <div
-        className="mx-5 flex items-center gap-3"
-        style={{
-          marginTop: "24px",
-          backgroundColor: "#FEF5D4",
-          border: "2px solid #D4A017",
-          borderRadius: "20px",
-          padding: "14px 18px",
-        }}
-      >
-        {/* Rank */}
-        <span
-          style={{
-            fontFamily: "Nunito, sans-serif",
-            fontWeight: 900,
-            fontSize: "22px",
-            color: "#D4A017",
-          }}
-        >
-          #8
-        </span>
-
-        {/* Avatar */}
-        <div
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            border: "2px solid #D4A017",
-            backgroundColor: "#FFFFFF",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Nunito, sans-serif",
-            fontWeight: 900,
-            fontSize: "14px",
-            color: "#A67C00",
-          }}
-        >
-          AW
-        </div>
-
-        {/* Info */}
-        <div className="flex-1">
-          <h3
-            style={{
-              fontFamily: "Nunito, sans-serif",
-              fontWeight: 900,
-              fontSize: "14px",
-              color: "#2D2006",
-            }}
-          >
-            You — Amina
-          </h3>
-          <p
-            style={{
-              fontFamily: "Nunito, sans-serif",
-              fontSize: "11px",
-              color: "#7A6020",
-            }}
-          >
-            340 XP this week
-          </p>
-        </div>
-
-        {/* Change indicator */}
-        <span
-          style={{
-            fontFamily: "Nunito, sans-serif",
-            fontSize: "11px",
-            fontWeight: 700,
-            color: "#22C55E",
-          }}
-        >
-          ↑ 2 from last week
-        </span>
-      </div>
-
       {/* Top 3 Podium */}
       <div className="mx-5" style={{ marginTop: "24px" }}>
         <Podium />
       </div>
 
       {/* Leaderboard List */}
-      <div className="mx-5 flex flex-col gap-2" style={{ marginTop: "24px", paddingBottom: "20px" }}>
-        {leaderboardUsers.map((user) => (
-          <LeaderboardRow
-            key={user.rank}
-            rank={user.rank}
-            name={user.name}
-            level={user.level}
-            xp={user.xp}
-            avatar={user.avatar}
-            variant={user.isSelf ? "self" : "regular"}
-          />
-        ))}
-      </div>
+      <div className="mx-5" style={{ marginTop: "24px", paddingBottom: "20px", height: "120px" }} />
 
       {/* Bottom Navigation */}
       <BottomNav activeTab="leaderboard" onNavigate={onNavigate} />

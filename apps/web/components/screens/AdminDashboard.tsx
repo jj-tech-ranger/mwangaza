@@ -10,6 +10,7 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ onNavigate }: AdminDashboardProps = {}) {
   const chartData: { id: string; day: string; lessons: number }[] = [];
+  const xpDistribution: Array<{ label: string; count: number; color: string }> = [];
 
   return (
     <div
@@ -78,16 +79,10 @@ export default function AdminDashboard({ onNavigate }: AdminDashboardProps = {})
             marginBottom: "24px",
           }}
         >
-          <StatCard
-            icon={Users}
-            label="Total Users"
-            value={1248}
-            change="↑ 12% this week"
-            changePositive
-          />
-          <StatCard icon={BookCheck} label="Lessons Completed" value={8402} change="↑ 8% this week" changePositive />
-          <StatCard icon={UserCheck} label="Active Today" value={234} change="↑ 5% this week" changePositive />
-          <StatCard icon={Award} label="Certificates Issued" value={89} change="↑ 15% this week" changePositive />
+          <StatCard icon={Users} label="Total Users" value={null} />
+          <StatCard icon={BookCheck} label="Lessons Completed" value={null} />
+          <StatCard icon={UserCheck} label="Active Today" value={null} />
+          <StatCard icon={Award} label="Certificates Issued" value={null} />
         </div>
 
         {/* Course Table */}
@@ -190,11 +185,8 @@ export default function AdminDashboard({ onNavigate }: AdminDashboardProps = {})
               XP Distribution
             </h3>
             <div className="flex flex-col gap-3">
-              {[
-                { label: "0-100 XP", count: 420, color: "#D4A017" },
-                { label: "101-500 XP", count: 580, color: "#FDF0C2" },
-                { label: "500+ XP", count: 248, color: "#C8930A" },
-              ].map((item, index) => (
+              {xpDistribution.length === 0 && <div style={{ height: "96px" }} />}
+              {xpDistribution.map((item, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div

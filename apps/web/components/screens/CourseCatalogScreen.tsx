@@ -1,8 +1,7 @@
-import { Search, Sun } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 import BottomNav from "@/components/shared/BottomNav";
-import CourseCard from "@/components/shared/CourseCard";
-const logoSvg = "/imports/mwangaza_logo_final.svg";
 
 interface CourseCatalogScreenProps {
   onNavigate?: (screen: string) => void;
@@ -13,11 +12,6 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
 
   const filters = ["All", "Math", "English", "Life Skills", "Wellness"];
 
-  const courses = [];
-  const hasEnrolledCourses = false;
-
-  const enrolledCourse = courses.find((c) => c.variant === "enrolled");
-  const availableCourses = courses.filter((c) => c.variant !== "enrolled");
 
   return (
     <div
@@ -40,7 +34,7 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
           backgroundColor: "#FFFDF5",
         }}
       >
-        <img src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" style={{ height: "32px", width: "auto" }} />
+        <Image src="/imports/mwangaza_logo_final.svg" alt="Mwangaza" width={32} height={32} />
 
         <div className="flex items-center gap-2">
           <div
@@ -60,21 +54,6 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
               cursor: "pointer",
             }}
           >
-            A
-          </div>
-          <div
-            onClick={() => onNavigate?.("profile")}
-            style={{
-              backgroundColor: "#FDF0C2",
-              color: "#A67C00",
-              fontWeight: 700,
-              fontSize: "12px",
-              padding: "6px 12px",
-              borderRadius: "100px",
-              cursor: "pointer",
-            }}
-          >
-            ⚡ 340 XP
           </div>
         </div>
       </div>
@@ -171,40 +150,8 @@ export default function CourseCatalogScreen({ onNavigate }: CourseCatalogScreenP
         })}
       </div>
 
-      {/* Empty State */}
-      <div
-        className="flex flex-col items-center justify-center"
-        style={{
-          marginTop: "60px",
-          paddingBottom: "20px",
-          flex: 1,
-        }}
-      >
-        <Sun size={64} color="#D4A017" style={{ marginBottom: "20px", opacity: 0.3 }} />
-        <h2
-          style={{
-            fontFamily: "Nunito, sans-serif",
-            fontWeight: 900,
-            fontSize: "20px",
-            color: "#2D2006",
-            textAlign: "center",
-          }}
-        >
-          No Courses Available Yet
-        </h2>
-        <p
-          style={{
-            marginTop: "12px",
-            fontFamily: "Nunito, sans-serif",
-            fontSize: "14px",
-            color: "#7A6020",
-            textAlign: "center",
-            maxWidth: "280px",
-          }}
-        >
-          Check back soon for exciting new courses to explore and grow your skills.
-        </p>
-      </div>
+      {/* Empty Content Container */}
+      <div style={{ flex: 1, marginTop: "60px" }} />
 
       {/* Bottom Navigation */}
       <BottomNav activeTab="learn" onNavigate={onNavigate} />

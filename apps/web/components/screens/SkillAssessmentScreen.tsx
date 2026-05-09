@@ -10,56 +10,36 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
   const [selectedAnswers, setSelectedAnswers] = useState<{[key: number]: number}>({});
   const [isComplete, setIsComplete] = useState(false);
 
-  const questions = [
-    {
-      id: 1,
-      question: "What is 7 + 5?",
-      options: ["10", "11", "12", "13"],
-      correctAnswer: 2,
-    },
-    {
-      id: 2,
-      question: "Which number comes next: 2, 4, 6, 8, __?",
-      options: ["9", "10", "11", "12"],
-      correctAnswer: 1,
-    },
-    {
-      id: 3,
-      question: "What is 15 - 8?",
-      options: ["5", "6", "7", "8"],
-      correctAnswer: 2,
-    },
-    {
-      id: 4,
-      question: "How many sides does a triangle have?",
-      options: ["2", "3", "4", "5"],
-      correctAnswer: 1,
-    },
-    {
-      id: 5,
-      question: "What is 3 × 4?",
-      options: ["7", "10", "12", "15"],
-      correctAnswer: 2,
-    },
-    {
-      id: 6,
-      question: "Which is greater: 25 or 19?",
-      options: ["25", "19", "They're equal", "Can't tell"],
-      correctAnswer: 0,
-    },
-    {
-      id: 7,
-      question: "What is half of 20?",
-      options: ["5", "8", "10", "15"],
-      correctAnswer: 2,
-    },
-    {
-      id: 8,
-      question: "What is 18 ÷ 3?",
-      options: ["4", "5", "6", "7"],
-      correctAnswer: 2,
-    },
-  ];
+  const questions: Array<{
+    id: number;
+    question: string;
+    options: string[];
+    correctAnswer: number;
+  }> = [];
+
+  if (questions.length === 0) {
+    return (
+      <div
+        style={{
+          width: "390px",
+          height: "844px",
+          backgroundColor: "#FFFDF5",
+          display: "flex",
+          flexDirection: "column",
+          fontFamily: "Nunito, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#FFFFFF",
+            padding: "16px 20px",
+            borderBottom: "1px solid rgba(212, 160, 23, 0.15)",
+          }}
+        />
+        <div style={{ flex: 1 }} />
+      </div>
+    );
+  }
 
   const handleSelectAnswer = (answerIndex: number) => {
     setSelectedAnswers({
@@ -116,6 +96,31 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   const hasAnswer = selectedAnswers[currentQuestion] !== undefined;
+  const current = questions[currentQuestion];
+
+  if (!current) {
+    return (
+      <div
+        style={{
+          width: "390px",
+          height: "844px",
+          backgroundColor: "#FFFDF5",
+          display: "flex",
+          flexDirection: "column",
+          fontFamily: "Nunito, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#FFFFFF",
+            padding: "16px 20px",
+            borderBottom: "1px solid rgba(212, 160, 23, 0.15)",
+          }}
+        />
+        <div style={{ flex: 1 }} />
+      </div>
+    );
+  }
 
   if (isComplete) {
     const score = calculateScore();
@@ -512,12 +517,12 @@ export default function SkillAssessmentScreen({ onNavigate }: SkillAssessmentScr
             lineHeight: "1.4",
           }}
         >
-          {questions[currentQuestion].question}
+          {current.question}
         </h2>
 
         {/* Answer Options */}
         <div className="flex flex-col gap-3">
-          {questions[currentQuestion].options.map((option, index) => {
+          {current.options.map((option, index) => {
             const isSelected = selectedAnswers[currentQuestion] === index;
             return (
               <button
